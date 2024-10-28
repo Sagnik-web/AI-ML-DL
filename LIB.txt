@@ -1,0 +1,6 @@
+1. requests
+2. from bs4 import BeautifulSoup
+3. pandas
+4. plotly
+5. matplotlib
+6. seaborn
