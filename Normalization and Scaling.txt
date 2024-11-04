@@ -1,0 +1,70 @@
+import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
+
+# Sample DataFrame
+df = pd.DataFrame({
+    'A': [1, 2, 3, 4, 5],
+    'B': [10, 20, 30, 40, 50]
+})
+
+# Initialize the MinMaxScaler
+scaler = MinMaxScaler()
+
+# Normalize the data
+df_normalized = pd.DataFrame(scaler.fit_transform(df), columns=df.columns)
+
+print("Normalized Data:")
+print(df_normalized)
+
+
+
+
+
+
+
+from sklearn.preprocessing import StandardScaler
+
+# Initialize the StandardScaler
+scaler = StandardScaler()
+
+# Standardize the data
+df_standardized = pd.DataFrame(scaler.fit_transform(df), columns=df.columns)
+
+print("\nStandardized Data:")
+print(df_standardized)
+
+
+
+
+
+
+
+from sklearn.preprocessing import RobustScaler
+
+# Initialize the RobustScaler
+scaler = RobustScaler()
+
+# Scale the data
+df_robust_scaled = pd.DataFrame(scaler.fit_transform(df), columns=df.columns)
+
+print("\nRobust Scaled Data:")
+print(df_robust_scaled)
+
+
+
+
+
+
+
+import numpy as np
+
+# Apply log transformation
+df['A_log'] = np.log1p(df['A'])  # log1p is used for log(1 + x) to handle zeros
+
+print("\nData with Log Transformation:")
+print(df)
+
+
+
+
+

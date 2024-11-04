@@ -1,0 +1,79 @@
+import pandas as pd
+from sklearn.preprocessing import LabelEncoder
+
+# Sample DataFrame
+df = pd.DataFrame({
+    'Color': ['Red', 'Green', 'Blue', 'Green'],
+    'Size': ['S', 'M', 'L', 'M']
+})
+
+# Initialize the LabelEncoder
+le = LabelEncoder()
+
+# Encode the 'Color' column
+df['Color'] = le.fit_transform(df['Color'])
+
+print(df)
+
+
+
+
+
+
+
+# Using get_dummies for One-Hot Encoding
+df_one_hot = pd.get_dummies(df, columns=['Color', 'Size'])
+
+print(df_one_hot)
+
+
+
+
+
+
+df['Color'] = pd.Categorical(df['Color'])
+df['Color'] = df['Color'].cat.codes  # This gives similar results to Label Encoding
+
+print(df)
+
+
+
+
+
+
+
+# Sample DataFrame with a target variable
+df = pd.DataFrame({
+    'Color': ['Red', 'Green', 'Blue', 'Green'],
+    'Target': [1, 0, 1, 0]
+})
+
+# Calculate target mean for each category
+mean_encoded = df.groupby('Color')['Target'].mean()
+df['Color'] = df['Color'].map(mean_encoded)
+
+print(df)
+
+
+
+
+
+# Calculate frequency of each category
+freq_encoded = df['Color'].value_counts()
+df['Color'] = df['Color'].map(freq_encoded)
+
+print(df)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
