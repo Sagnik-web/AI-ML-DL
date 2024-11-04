@@ -1,0 +1,73 @@
+# Check for missing values
+print(df.isnull())
+print(df.isnull().sum())
+
+
+
+# Drop rows with any missing values
+df_dropped_rows = df.dropna()
+
+# Drop columns with any missing values
+df_dropped_cols = df.dropna(axis=1)
+
+
+
+
+
+# Fill missing values with a specific value
+df_filled = df.fillna(0)
+
+# Fill missing values with the mean of the column
+df['A'] = df['A'].fillna(df['A'].mean())
+
+# Fill missing values with the previous value (forward fill)
+df['B'] = df['B'].fillna(method='ffill')
+
+# Fill missing values with the next value (backward fill)
+df['C'] = df['C'].fillna(method='bfill')
+
+
+
+
+# Interpolate missing values
+df['A'] = df['A'].interpolate()
+
+
+
+
+print(df.isnull().sum())
+
+
+
+
+
+def custom_fill(x):
+    return x.fillna(x.mean())
+
+df['B'] = custom_fill(df['B'])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

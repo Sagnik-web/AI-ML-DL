@@ -1,0 +1,81 @@
+import pandas as pd
+
+# Sample DataFrame with a date column
+df = pd.DataFrame({
+    'date': ['2023-01-01', '2023-06-15', '2023-12-30']
+})
+
+# Convert to datetime
+df['date'] = pd.to_datetime(df['date'])
+
+
+
+
+
+
+
+# Extracting Feature
+
+# Extracting year, month, day, etc.
+df['year'] = df['date'].dt.year
+df['month'] = df['date'].dt.month
+df['day'] = df['date'].dt.day
+df['day_of_week'] = df['date'].dt.dayofweek  # Monday=0, Sunday=6
+df['week_of_year'] = df['date'].dt.isocalendar().week
+df['quarter'] = df['date'].dt.quarter
+df['is_month_start'] = df['date'].dt.is_month_start
+df['is_month_end'] = df['date'].dt.is_month_end
+df['is_weekend'] = df['date'].dt.dayofweek >= 5
+
+
+
+
+
+
+
+
+
+
+#Temporal Cycles
+import numpy as np
+
+# Create cyclical features for month and day of the week
+df['month_sin'] = np.sin(2 * np.pi * df['month'] / 12)
+df['month_cos'] = np.cos(2 * np.pi * df['month'] / 12)
+
+df['day_of_week_sin'] = np.sin(2 * np.pi * df['day_of_week'] / 7)
+11df['day_of_week_cos'] = np.cos(2 * np.pi * df['day_of_week'] / 7)
+
+
+
+
+
+
+
+
+
+
+#Time Differences
+
+# Creating a second date for comparison
+df['event_date'] = pd.to_datetime(['2023-07-01', '2023-11-01', '2024-01-01'])
+
+# Calculate the difference in days
+df['days_until_event'] = (df['event_date'] - df['date']).dt.days
+
+
+
+
+
+# Assuming df is sorted by date
+df['lag_1'] = df['target'].shift(1)  # Previous day's target
+df['lag_2'] = df['target'].shift(2)  # Two days ago target
+
+
+
+
+
+# Rolling mean for the last 7 days
+df['rolling_mean_7'] = df['target'].rolling(window=7).mean()
+
+
